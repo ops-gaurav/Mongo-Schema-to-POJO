@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_mongo_schema_to_pojo" default="compile.module.mongo_schema_to_pojo">
+  <dirname property="module.mongo_schema_to_pojo.basedir" file="${ant.file.module_mongo_schema_to_pojo}"/>
+  
+  <property name="module.jdk.home.mongo_schema_to_pojo" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.mongo_schema_to_pojo" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.mongo_schema_to_pojo" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.mongo_schema_to_pojo" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
+  
+  <property name="mongo_schema_to_pojo.output.dir" value="${module.mongo_schema_to_pojo.basedir}/out/production/Mongo Schema to POJO"/>
+  <property name="mongo_schema_to_pojo.testoutput.dir" value="${module.mongo_schema_to_pojo.basedir}/out/test/Mongo Schema to POJO"/>
+  
+  <path id="mongo_schema_to_pojo.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="mongo_schema_to_pojo.module.production.classpath">
+    <path refid="${module.jdk.classpath.mongo_schema_to_pojo}"/>
+    <path refid="library.mongo-java-driver-3.2.2.classpath"/>
+  </path>
+  
+  <path id="mongo_schema_to_pojo.runtime.production.module.classpath">
+    <pathelement location="${mongo_schema_to_pojo.output.dir}"/>
+    <path refid="library.mongo-java-driver-3.2.2.classpath"/>
+  </path>
+  
+  <path id="mongo_schema_to_pojo.module.classpath">
+    <path refid="${module.jdk.classpath.mongo_schema_to_pojo}"/>
+    <pathelement location="${mongo_schema_to_pojo.output.dir}"/>
+    <path refid="library.mongo-java-driver-3.2.2.classpath"/>
+  </path>
+  
+  <path id="mongo_schema_to_pojo.runtime.module.classpath">
+    <pathelement location="${mongo_schema_to_pojo.testoutput.dir}"/>
+    <pathelement location="${mongo_schema_to_pojo.output.dir}"/>
+    <path refid="library.mongo-java-driver-3.2.2.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.mongo_schema_to_pojo">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.mongo_schema_to_pojo">
+    <patternset refid="excluded.from.module.mongo_schema_to_pojo"/>
+  </patternset>
+  
+  <path id="mongo_schema_to_pojo.module.sourcepath">
+    <dirset dir="${module.mongo_schema_to_pojo.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.mongo_schema_to_pojo" depends="compile.module.mongo_schema_to_pojo.production,compile.module.mongo_schema_to_pojo.tests" description="Compile module Mongo Schema to POJO"/>
+  
+  <target name="compile.module.mongo_schema_to_pojo.production" depends="register.custom.compilers" description="Compile module Mongo Schema to POJO; production classes">
+    <mkdir dir="${mongo_schema_to_pojo.output.dir}"/>
+    <javac2 destdir="${mongo_schema_to_pojo.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.mongo_schema_to_pojo}/javac">
+      <compilerarg line="${compiler.args.mongo_schema_to_pojo}"/>
+      <bootclasspath refid="mongo_schema_to_pojo.module.bootclasspath"/>
+      <classpath refid="mongo_schema_to_pojo.module.production.classpath"/>
+      <src refid="mongo_schema_to_pojo.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.mongo_schema_to_pojo"/>
+    </javac2>
+    
+    <copy todir="${mongo_schema_to_pojo.output.dir}">
+      <fileset dir="${module.mongo_schema_to_pojo.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.mongo_schema_to_pojo.tests" depends="register.custom.compilers,compile.module.mongo_schema_to_pojo.production" description="compile module Mongo Schema to POJO; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.mongo_schema_to_pojo" description="cleanup module">
+    <delete dir="${mongo_schema_to_pojo.output.dir}"/>
+    <delete dir="${mongo_schema_to_pojo.testoutput.dir}"/>
+  </target>
+</project>

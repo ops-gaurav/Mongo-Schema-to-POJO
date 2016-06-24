@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Mongo Schema to POJO:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Mongo_Schema_to_POJO_jar</output-path>
+    <root id="archive" name="Mongo Schema to POJO.jar">
+      <element id="module-output" name="Mongo Schema to POJO" />
+      <element id="extracted-dir" path="$USER_HOME$/Downloads/mongo-java-driver-3.2.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Downloads/mongodb-driver-3.2.2.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
